@@ -1,6 +1,7 @@
 server:
   port: 8080
   servlet:
+  # chemain de base de toute l'interface spring/ permet de planquer le servlet drrière un site internet '
     context-path: "/"
 
 
@@ -16,6 +17,10 @@ spring:
       driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     hibernate:
+    # permet de gérer la manière dont le programme vas se comproter sur la base de données
+    # create -> il vas suprimer toutes les tables existantes et mettre les siennes, idéal pour tester la modélisation JPA
+    # update -> il n'ajouteras que les table/colomne non existante, et ne toucheras pas à vos précieuses données
+    
       ddl-auto: create
     show-sql: true
     properties:

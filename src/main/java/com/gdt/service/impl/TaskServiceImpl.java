@@ -3,6 +3,8 @@ package com.gdt.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.gdt.entities.Task;
+import com.gdt.exceptions.BadRequestException;
+import com.gdt.exceptions.ErrorCodes;
 import com.gdt.repository.TaskRepository;
 import com.gdt.service.TaskService;
 
@@ -25,9 +27,9 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public Task read(Long id) {
+	public Task read(Long id) throws BadRequestException {
 
-		return this.repository.findById(id).orElse(null);
+		return this.repository.findById(id).orElseThrow(()-> new BadRequestException("l'utilisateur n'existe pas",ErrorCodes.USER_NOT_FOUND));
 	}
 
 }

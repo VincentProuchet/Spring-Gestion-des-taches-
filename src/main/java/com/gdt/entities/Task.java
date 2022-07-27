@@ -1,7 +1,5 @@
 package com.gdt.entities;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +22,6 @@ public class Task {
 	@Column(length = 20)
 	private String title;
 	/** description */
-	@Column(length = 45)
 	private String description;
 
 	/** initial time */

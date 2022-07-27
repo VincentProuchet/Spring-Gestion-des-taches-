@@ -1,16 +1,14 @@
 package com.gdt.service;
 
-import java.util.List;
-
-import com.gdt.entities.Employee;
 import com.gdt.entities.Task;
+import com.gdt.exceptions.BadRequestException;
 
 public interface TaskService {
 //	List<Task> search();
 
-	void create(Task task);
+	void create(Task task) throws BadRequestException;
 
-	Task read(Long id);
+	Task read(Long id) throws BadRequestException;
 
 //	Task update(Task task);
 //

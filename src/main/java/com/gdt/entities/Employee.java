@@ -1,7 +1,9 @@
 package com.gdt.entities;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,18 +32,18 @@ public class Employee {
 	@Column(length = 45)
 	private String lastName;
 	/** userName */
-	@Column(length = 25)
+	@Column(length = 80,unique = true, nullable = false)
 	private String userName;
 
 	/** tasks */
 	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Task> tasks = new ArrayList<>();
+	private  Set<Task> tasks = new HashSet<>();
 
 	public Employee() {
 		super();
 	}
 
-	public Employee(Long id, String firstName, String lastName, String userName, List<Task> tasks) {
+	public Employee(Long id, String firstName, String lastName, String userName, HashSet<Task> tasks) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -93,7 +95,7 @@ public class Employee {
 	 * 
 	 * @return the tasks
 	 */
-	public List<Task> getTasks() {
+	public Set<Task> getTasks() {
 		return tasks;
 	}
 
@@ -130,7 +132,8 @@ public class Employee {
 	 * @param tasks the tasks to set
 	 */
 	public void setTasks(List<Task> tasks) {
-		this.tasks = tasks;
+		this.tasks.clear();
+		this.tasks.addAll(tasks);
 	}
 
 }
