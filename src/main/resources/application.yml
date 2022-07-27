@@ -20,7 +20,8 @@ spring:
     # permet de gérer la manière dont le programme vas se comproter sur la base de données
     # create -> il vas suprimer toutes les tables existantes et mettre les siennes, idéal pour tester la modélisation JPA
     # update -> il n'ajouteras que les table/colomne non existante, et ne toucheras pas à vos précieuses données
-    
+    # validate -> ne modifieras pas la forme de la base de donnée, ajoutera et supprimera des entrées 
+    # c'est le mode généralement utilisé en production
       ddl-auto: create
     show-sql: true
     properties:

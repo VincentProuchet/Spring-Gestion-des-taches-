@@ -1,6 +1,6 @@
 package com.gdt.entities;
 
-import java.util.ArrayList;
+import com.gdt.entities.Task;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,16 +14,25 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * @author Vincent
  *
  */
 @Entity
 @Table(name = "EMPLOYEE")
+@Setter
+@Getter
+@NoArgsConstructor
 public class Employee {
 	/** id */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Setter(value = AccessLevel.NONE)
 	private Long id;
 	/** firstName */
 	@Column(length = 20)
@@ -32,17 +41,21 @@ public class Employee {
 	@Column(length = 45)
 	private String lastName;
 	/** userName */
-	@Column(length = 80,unique = true, nullable = false)
+	@Column(length = 80, unique = true, nullable = false)
 	private String userName;
 
 	/** tasks */
 	@ManyToMany(fetch = FetchType.EAGER)
-	private  Set<Task> tasks = new HashSet<>();
+	@Setter(value = AccessLevel.NONE)
+	private Set<Task> tasks = new HashSet<>();
 
-	public Employee() {
-		super();
-	}
-
+	/** Constructeur
+	 * @param id
+	 * @param firstName
+	 * @param lastName
+	 * @param userName
+	 * @param tasks
+	 */
 	public Employee(Long id, String firstName, String lastName, String userName, HashSet<Task> tasks) {
 		super();
 		this.id = id;
@@ -52,78 +65,6 @@ public class Employee {
 		if (tasks != null) {
 			this.tasks = tasks;
 		}
-	}
-
-	/**
-	 * Getter
-	 * 
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * Getter
-	 * 
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
-
-	/**
-	 * Getter
-	 * 
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return lastName;
-	}
-
-	/**
-	 * Getter
-	 * 
-	 * @return the userName
-	 */
-	public String getUserName() {
-		return userName;
-	}
-
-	/**
-	 * Getter
-	 * 
-	 * @return the tasks
-	 */
-	public Set<Task> getTasks() {
-		return tasks;
-	}
-
-	/**
-	 * Setter
-	 * 
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	/**
-	 * Setter
-	 * 
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	/**
-	 * Setter
-	 * 
-	 * @param userName the userName to set
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	/**

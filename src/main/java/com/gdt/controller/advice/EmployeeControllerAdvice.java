@@ -1,7 +1,10 @@
 package com.gdt.controller.advice;
 
+
+
 import java.sql.SQLIntegrityConstraintViolationException;
 
+import org.hibernate.annotations.common.util.impl.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.gdt.dto.ErrorDTO;
 import com.gdt.exceptions.BadRequestException;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @ControllerAdvice
 public class EmployeeControllerAdvice {
 	
@@ -26,7 +31,9 @@ public class EmployeeControllerAdvice {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = BadRequestException.class )
 	public @ResponseBody ErrorDTO handleBadRequestException(BadRequestException exception) {
-		exception.printStackTrace();
+		log.error("message", exception);
+
+
 		ErrorDTO error = new ErrorDTO();
 		error.setCode(exception.getCode().toString());
 		error.setMessage(exception.getMessage());

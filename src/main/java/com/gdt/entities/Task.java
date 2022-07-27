@@ -7,16 +7,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * @author Vincent
  *
  */
+
 @Entity
 @Table(name = "TASK")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Task {
 	/** id */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Setter(value = AccessLevel.NONE)
 	private Long id;
 	/** title */
 	@Column(length = 20)
@@ -29,84 +41,5 @@ public class Task {
 	/** temps restant */
 	private int rt;
 
-	/** Constructeur
-	 * 
-	 */
-	public Task() {
-		super();
-	}
-
-	public Task(Long id, String title, String description, int it, int rt) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.it = it;
-		this.rt = rt;
-	}
-
-	/** Getter
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/** Getter
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
-
-	/** Getter
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/** Getter
-	 * @return the it
-	 */
-	public int getIt() {
-		return it;
-	}
-
-	/** Getter
-	 * @return the rt
-	 */
-	public int getRt() {
-		return rt;
-	}
-
-	/** Setter
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	/** Setter
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	/** Setter
-	 * @param it the it to set
-	 */
-	public void setIt(int it) {
-		this.it = it;
-	}
-
-	/** Setter
-	 * @param rt the rt to set
-	 */
-	public void setRt(int rt) {
-		this.rt = rt;
-	}
-	
 }
 	

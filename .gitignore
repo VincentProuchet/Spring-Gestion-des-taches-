@@ -1,11 +1,8 @@
 HELP.md
 target/
-*.class
-/bin
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-out/
 
 ### STS ###
 .apt_generated
@@ -13,7 +10,6 @@ out/
 .factorypath
 .project
 .settings
-/.settings
 .springBeans
 .sts4-cache
 

@@ -15,29 +15,48 @@ import com.gdt.repository.EmployeeRepository;
 import com.gdt.service.EmployeeService;
 import com.gdt.service.TaskService;
 
-/** Implémentation de EmployeeService 
+import lombok.extern.slf4j.Slf4j;
+
+/** Implementation de EmployeeService 
  * le découplage est fait pour limiter la dépendance entre un controleur et un service
  * 
  * @author Vincent 
  */
+@Slf4j
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
+	/** repository */
 	private EmployeeRepository repository;
+	/** taskService */
 	private TaskService taskService;
 
+	/** Constructeur
+	 * @param repository
+	 * @param taskService
+	 * 
+	 * oui il suffit d'ajouter une propriété et de créer le constructeur pour qu'il puisse juste s'en servir
+	 * à ce stade c'est de la magie 
+	 */
 	public EmployeeServiceImpl(EmployeeRepository repository, TaskService taskService) {
 		super();
 		this.repository = repository;
 		this.taskService = taskService;
 	}
 
+	/** retourne tous les résultats
+	 * trouvé dans le stockage
+	 *
+	 */
 	@Override
 	public List<Employee> search() {
 		// TODO Auto-generated method stub
 		return repository.findAll();
 	}
 
+	/** persiste un nouvel utilisateur
+	 *
+	 */
 	@Override
 	public void create(Employee employee) throws Exception {
 		Optional<Employee> current = repository.findByUserName(employee.getUserName());
@@ -47,6 +66,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		repository.save(employee);
 	}
 
+	/**	
+	 *
+	 */
 	@Override
 	public Employee read(Long id) throws BadRequestException {
 		return repository.findById(id)
