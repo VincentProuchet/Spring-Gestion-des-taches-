@@ -19,8 +19,8 @@ import com.gdt.exceptions.BadRequestException;
 import com.gdt.exceptions.ErrorCodes;
 import com.gdt.service.EmployeeService;
 
-@RestController
-@RequestMapping(path = "employee", produces = MediaType.APPLICATION_JSON_VALUE)
+//@RestController
+//@RequestMapping(path = "employee", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmployeeControler {
 
 	private EmployeeService service;
@@ -48,7 +48,7 @@ public class EmployeeControler {
 
 	///////////////////////////////////////////////////////
 	@GetMapping(path = "/{id}")
-	public Employee read(@PathVariable Long id) throws Exception {
+	public Employee read(@PathVariable Integer id) throws Exception {
 		return service.read(id);
 	}
 
@@ -58,7 +58,7 @@ public class EmployeeControler {
 	}
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@PostMapping(path = "/{employeeId}/task")
-	public void taskToUser(@Validated @RequestBody UserTaskDTO userTask, @PathVariable Long employeeId) throws Exception {
+	public void taskToUser(@Validated @RequestBody UserTaskDTO userTask, @PathVariable Integer employeeId) throws Exception {
 		if(userTask.getUserId()!= employeeId){
 			throw new BadRequestException("les Données ne correspondent pas entres-elles ",ErrorCodes.DATA_INTEGRITY_ERROR );
 		}

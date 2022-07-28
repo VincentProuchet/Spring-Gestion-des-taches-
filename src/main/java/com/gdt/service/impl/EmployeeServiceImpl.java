@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gdt.entities.Employee;
@@ -15,15 +16,18 @@ import com.gdt.repository.EmployeeRepository;
 import com.gdt.service.EmployeeService;
 import com.gdt.service.TaskService;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/** Implementation de EmployeeService 
- * le découplage est fait pour limiter la dépendance entre un controleur et un service
+/**
+ * Implementation de EmployeeService le découplage est fait pour limiter la
+ * dépendance entre un controleur et un service
  * 
- * @author Vincent 
+ * @author Vincent
  */
 @Slf4j
 @Service
+
 public class EmployeeServiceImpl implements EmployeeService {
 
 	/** repository */
@@ -31,12 +35,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 	/** taskService */
 	private TaskService taskService;
 
-	/** Constructeur
+	/**
+	 * Constructeur
+	 * 
 	 * @param repository
 	 * @param taskService
 	 * 
-	 * oui il suffit d'ajouter une propriété et de créer le constructeur pour qu'il puisse juste s'en servir
-	 * à ce stade c'est de la magie 
+	 *                    oui il suffit d'ajouter une propriété et de créer le
+	 *                    constructeur pour qu'il puisse juste s'en servir à ce
+	 *                    stade c'est de la magie
 	 */
 	public EmployeeServiceImpl(EmployeeRepository repository, TaskService taskService) {
 		super();
@@ -44,8 +51,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		this.taskService = taskService;
 	}
 
-	/** retourne tous les résultats
-	 * trouvé dans le stockage
+	/**
+	 * retourne tous les résultats trouvé dans le stockage
 	 *
 	 */
 	@Override
@@ -54,12 +61,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return repository.findAll();
 	}
 
-	/** persiste un nouvel utilisateur
+	@Override
+	public List<Employee> search(String q) {
+		if (q == null) {
+			return repository.findAll();
+		}
+		return this.repository.search(q).toList();
+
+	}
+
+	/**
+	 * persiste un nouvel utilisateur
 	 *
 	 */
 	@Override
 	public void create(Employee employee) throws Exception {
-		Optional<Employee> current = repository.findByUserName(employee.getUserName());
+		Optional<Employee> current = repository.findByUserName(employee.getUsername());
 		if (current.isPresent()) {
 			throw new BadRequestException("cet email existe déjà", ErrorCodes.USER_ALLREADY_EXIST);
 		}
@@ -70,13 +87,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 *
 	 */
 	@Override
-	public Employee read(Long id) throws BadRequestException {
+	public Employee read(Integer id) throws BadRequestException {
 		return repository.findById(id)
 				.orElseThrow(() -> new BadRequestException("l'utilisateur n'existe pas", ErrorCodes.USER_NOT_FOUND));
 	}
 
 	@Override
-	public Employee update(Employee employee, Long id) throws Exception {
+	public Employee update(Employee employee, Integer id) throws Exception {
 		Employee current = this.read(id);
 		current.setFirstName(employee.getFirstName());
 		current.setLastName(employee.getLastName());
@@ -84,13 +101,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		repository.deleteById(id);
 	}
 
 	@Transactional
 	@Override
-	public void taskToUser(Long taskId, Long userId) throws Exception {
+	public void taskToUser(Integer taskId, Integer userId) throws Exception {
 		Employee currentEmployee = this.read(userId);
 		Task currentTask = taskService.read(taskId);
 
@@ -98,11 +115,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 				.orElse(null) == null) {
 			currentEmployee.getTasks().add(currentTask);
 
-		}
-		else {
-			throw new BadRequestException("Tache déjà assignée",ErrorCodes.DATA_INTEGRITY_PROTECTION );
+		} else {
+			throw new BadRequestException("Tache déjà assignée", ErrorCodes.DATA_INTEGRITY_PROTECTION);
 		}
 
 	}
+
+
 
 }

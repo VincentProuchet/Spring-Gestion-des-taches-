@@ -25,7 +25,7 @@ spring:
     # update -> il n'ajouteras que les table/colomne non existante, et ne toucheras pas à vos précieuses données
     # validate -> ne modifieras pas la forme de la base de donnée, ajoutera et supprimera des entrées 
     # c'est le mode généralement utilisé en production
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:

@@ -9,10 +9,10 @@ CREATE TABLE employee(
 	-- @Column(length = 45)
 	  `last_name` VARCHAR(45),
 	-- @Column(length = 80, unique = true, nullable = false)
-	  `user_name` VARCHAR(80) UNIQUE NOT NULL,
+	  `user_name` VARCHAR(80) UNIQUE NOT NULL
 	)
 CREATE TABLE task(
-	-- @GeneratedValue(strategy = GenerationType.IDENTITY)
+	-- @GeneratedValue(stsrategy = GenerationType.IDENTITY)
 	`id`  INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	-- /** title */
 	-- @Column(length = 20)
@@ -25,3 +25,29 @@ CREATE TABLE task(
 	`rt` INT,
 	
 	)
+	
+	-- changeset Vincent:2
+	
+	ALTER TABLE employee add column password varchar(255);
+	-- cchangeset Vincent:3
+	ALTER TABLE employee add column active boolean ;
+	
+	--changeset Vincent:4
+	CREATE TABLE role(
+		id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY,
+		label VARCHAR (20)
+	
+	)
+	
+	
+	CREATE TABLE employe_role(
+	employee_id INT,
+	role_id INT,
+	PRIMARY KEY (employee_id, role_id)bddtest
+		
+	)
+	
+	-- changeset  vincent:5
+	INSERT INTO role(label VALUES ('ADMIN');
+		INSERT INTO role(label VALUES ('USER');
+			INSERT INTO role(label VALUES ('MANAGER');

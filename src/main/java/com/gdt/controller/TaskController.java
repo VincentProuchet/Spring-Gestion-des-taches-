@@ -46,7 +46,7 @@ public class TaskController {
 	 * @throws BadRequestException
 	 */
 	@GetMapping(path = "/{id}")
-	public Task read(@PathVariable Long id) throws BadRequestException {
+	public Task read(@PathVariable Integer id) throws BadRequestException {
 		return this.service.read(id);
 	}
 

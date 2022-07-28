@@ -41,7 +41,7 @@ public class TaskServiceImpl implements TaskService {
 	 *
 	 */
 	@Override
-	public Task read(Long id) throws BadRequestException {
+	public Task read(Integer id) throws BadRequestException {
 
 		return this.repository.findById(id).orElseThrow(()-> new BadRequestException("l'utilisateur n'existe pas",ErrorCodes.USER_NOT_FOUND));
 	}

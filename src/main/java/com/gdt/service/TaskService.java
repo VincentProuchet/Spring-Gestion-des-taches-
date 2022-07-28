@@ -8,7 +8,7 @@ public interface TaskService {
 
 	void create(Task task) throws BadRequestException;
 
-	Task read(Long id) throws BadRequestException;
+	Task read(Integer id) throws BadRequestException;
 
 //	Task update(Task task);
 //
