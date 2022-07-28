@@ -6,8 +6,11 @@ server:
 
 
 spring:
+  #liquibase:
+    #change-log: classpath:db/changelog/changelog.sql
   application:
     name: "Gestion des taches"
+    # base de donnée à laquele l'API se connecte
   datasource:
     name: task
     url: jdbc:mariadb://localhost:3307/gestiondestaches

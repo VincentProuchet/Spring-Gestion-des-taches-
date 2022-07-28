@@ -1,7 +1,5 @@
 package com.gdt.controller;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +14,10 @@ import com.gdt.entities.Task;
 import com.gdt.exceptions.BadRequestException;
 import com.gdt.service.TaskService;
 
+import lombok.AllArgsConstructor;
+
 @RestController
+@AllArgsConstructor
 @RequestMapping(path="task", produces= MediaType.APPLICATION_JSON_VALUE)
 public class TaskController {
 
@@ -28,16 +29,22 @@ public class TaskController {
 	 */
 	private TaskService service;
 
-	public TaskController(TaskService service) {
-		super();
-		this.service = service;
-	}
+
+	/**
+	 * @param task
+	 * @throws BadRequestException
+	 */
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void create(@RequestBody Task task) throws BadRequestException {
 		this.service.create(task);
 	}
 	
+	/**
+	 * @param id
+	 * @return
+	 * @throws BadRequestException
+	 */
 	@GetMapping(path = "/{id}")
 	public Task read(@PathVariable Long id) throws BadRequestException {
 		return this.service.read(id);
