@@ -3,12 +3,23 @@ package com.gdt.service;
 import com.gdt.entities.Task;
 import com.gdt.exceptions.BadRequestException;
 
+/**
+ * @author Vincent
+ *
+ */
 public interface TaskService {
 //	List<Task> search();
 
-	void create(Task task) throws BadRequestException;
+	/**
+	 * @param task
+	 */
+	void create(Task task) ;
 
-	Task read(Integer id) throws BadRequestException;
+	/**
+	 * @param id
+	 * @return
+	 */
+	Task read(Integer id) ;
 
 //	Task update(Task task);
 //

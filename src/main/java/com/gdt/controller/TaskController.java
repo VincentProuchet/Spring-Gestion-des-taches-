@@ -36,7 +36,7 @@ public class TaskController {
 	 */
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void create(@RequestBody Task task) throws BadRequestException {
+	public void create(@RequestBody Task task) {
 		this.service.create(task);
 	}
 	
@@ -46,7 +46,7 @@ public class TaskController {
 	 * @throws BadRequestException
 	 */
 	@GetMapping(path = "/{id}")
-	public Task read(@PathVariable Integer id) throws BadRequestException {
+	public Task read(@PathVariable Integer id) {
 		return this.service.read(id);
 	}
 

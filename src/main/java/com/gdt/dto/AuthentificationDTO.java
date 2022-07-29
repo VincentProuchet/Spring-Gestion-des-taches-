@@ -9,14 +9,13 @@ import lombok.Setter;
  * @author Vincent
  *
  */
-@Getter
 @Setter
-@NoArgsConstructor
+@Getter
 @AllArgsConstructor
-public class UserTaskDTO {
-	/** userId */
-	private Integer userId;
-	/** taskId */
-	private	Integer taskId;
-}
+@NoArgsConstructor
+public class AuthentificationDTO {
 
+	private String userName;
+	private String password;
+	
+}

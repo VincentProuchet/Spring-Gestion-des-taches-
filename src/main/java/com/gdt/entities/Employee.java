@@ -1,8 +1,5 @@
 package com.gdt.entities;
 
-import com.fasterxml.jackson.core.sym.Name;
-import com.gdt.entities.Task;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -15,10 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -34,6 +30,7 @@ import lombok.Setter;
  * @author Vincent
  *
  */
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "EMPLOYEE")
 @Setter
@@ -60,22 +57,24 @@ public class Employee implements UserDetails {
 	//// authentification
 	/** password */
 	@Column(name = "password", length = 255)
-	@Getter (value = AccessLevel.NONE)
 	private String password;
-	private String token;
 	@Column(name = "active")
 	private boolean enable;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "users_roles")
 	private Set<Role> roles = new HashSet<>();
-
+	
+	
 	/** tasks */
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@Setter(value = AccessLevel.NONE)
 	@JoinTable(name = "users_tasks")
 	private Set<Task> tasks = new HashSet<>();
-
+	
+	@OneToOne (mappedBy = "employee")
+	private SecurityToken securityToken;
+	
 	/**
 	 * Constructeur
 	 * 
@@ -139,9 +138,6 @@ public class Employee implements UserDetails {
 		return this.enable;
 	}
 	
-	@Override
-	public String getPassword() {
-		return this.password;
-	}
+
 
 }

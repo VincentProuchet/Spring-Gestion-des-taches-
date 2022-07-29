@@ -2,7 +2,7 @@
 
 -- changeset Vincent:1
 CREATE TABLE employee(
-	-- @GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	`id` INT AUTO_INCREMENT PRIMARY KEY,
 	-- @Column(length = 20)
 	 `first_name` VARCHAR(20),
@@ -12,7 +12,7 @@ CREATE TABLE employee(
 	  `user_name` VARCHAR(80) UNIQUE NOT NULL
 	)
 CREATE TABLE task(
-	-- @GeneratedValue(stsrategy = GenerationType.IDENTITY)
+
 	`id`  INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	-- /** title */
 	-- @Column(length = 20)
@@ -43,7 +43,9 @@ CREATE TABLE task(
 	CREATE TABLE employe_role(
 	employee_id INT,
 	role_id INT,
-	PRIMARY KEY (employee_id, role_id)bddtest
+	PRIMARY KEY (employee_id, role_id),
+	FOREIGN KEY (employee_id, employee.id),
+		FOREIGN KEY (role_id, role.id),
 		
 	)
 	

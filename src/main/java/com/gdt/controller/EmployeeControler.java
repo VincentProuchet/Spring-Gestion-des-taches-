@@ -19,17 +19,29 @@ import com.gdt.exceptions.BadRequestException;
 import com.gdt.exceptions.ErrorCodes;
 import com.gdt.service.EmployeeService;
 
-//@RestController
-//@RequestMapping(path = "employee", produces = MediaType.APPLICATION_JSON_VALUE)
+/**
+ * @author Vincent
+ *
+ */
+@RestController
+@RequestMapping(path = "employee", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmployeeControler {
 
+	/** service */
 	private EmployeeService service;
 
+	/** Constructeur
+	 * @param service
+	 */
 	public EmployeeControler(EmployeeService service) {
 		super();
 		this.service = service;
 	}
 
+	/**
+	 * @param employee
+	 * @throws Exception
+	 */
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public void create(@RequestBody Employee employee) throws Exception {
@@ -37,8 +49,12 @@ public class EmployeeControler {
 
 	}
 
-	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping(path = "/batch")
+	//@ResponseStatus(HttpStatus.CREATED)
+	//@PostMapping(path = "/batch")
+	/**
+	 * @param employees
+	 * @throws Exception
+	 */
 	public void create(@RequestBody Employee[] employees) throws Exception {
 
 		for (Employee employee : employees) {
@@ -47,15 +63,28 @@ public class EmployeeControler {
 	}
 
 	///////////////////////////////////////////////////////
+	/**
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
 	@GetMapping(path = "/{id}")
 	public Employee read(@PathVariable Integer id) throws Exception {
 		return service.read(id);
 	}
 
+	/**
+	 * @return
+	 */
 	@GetMapping()
 	public List<Employee> search() {
 		return this.service.search();
 	}
+	/**
+	 * @param userTask
+	 * @param employeeId
+	 * @throws Exception
+	 */
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@PostMapping(path = "/{employeeId}/task")
 	public void taskToUser(@Validated @RequestBody UserTaskDTO userTask, @PathVariable Integer employeeId) throws Exception {

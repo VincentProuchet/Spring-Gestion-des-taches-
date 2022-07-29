@@ -13,10 +13,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserTaskDTO {
-	/** userId */
-	private Integer userId;
-	/** taskId */
-	private	Integer taskId;
+public class TokenDTO {
+	/** authenfication */
+	private String authenfication;
+	/** refresh */
+	private String refresh;
 }
-

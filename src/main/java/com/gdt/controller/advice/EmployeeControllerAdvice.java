@@ -31,7 +31,7 @@ public class EmployeeControllerAdvice {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = BadRequestException.class )
 	public @ResponseBody ErrorDTO handleBadRequestException(BadRequestException exception) {
-		log.error("message", exception);
+		log.error("Une erreur de requête est détecté ", exception);
 
 
 		ErrorDTO error = new ErrorDTO();

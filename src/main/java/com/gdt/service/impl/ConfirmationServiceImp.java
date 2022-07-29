@@ -8,17 +8,26 @@ import org.springframework.stereotype.Service;
 import com.gdt.entities.ConfirmationToken;
 import com.gdt.entities.Employee;
 import com.gdt.exceptions.BadRequestException;
+import com.gdt.exceptions.ErrorCodes;
 import com.gdt.repository.ConfirmationTokenRepository;
 import com.gdt.service.ConfirmationService;
 
 import lombok.AllArgsConstructor;
 
 
+/**
+ * @author Vincent
+ *
+ */
 @Service
 @AllArgsConstructor
 public class ConfirmationServiceImp implements ConfirmationService{
 
+	/** confirmationTokenRepository */
 	ConfirmationTokenRepository confirmationTokenRepository;
+	/**
+	 *
+	 */
 	@Override
 	public void sendEmployeeVerificationToken(Employee employee) {
 		// générer un token
@@ -35,24 +44,22 @@ public class ConfirmationServiceImp implements ConfirmationService{
 		
 		
 	}
-	public void confirmEmployeeRegistration(Employee employee, ConfirmationToken token) throws BadRequestException {
+
+	/**
+	 *
+	 */
+	public void confirmEmployeeRegistration( String token) {
 		if(token!=null) {
-			
-			ConfirmationToken confirmedtoken = confirmationTokenRepository.findByValueAndEmployeeId(token.getValue(), employee.getId()).orElseThrow(()-> new BadRequestException());
-			employee.setEnable(true);
+			 
+			ConfirmationToken confirmedtoken = confirmationTokenRepository.findByValue(token).orElseThrow(()-> new BadRequestException("Token non valide",ErrorCodes.DATA_INTEGRITY_PROTECTION));
+			confirmedtoken.getEmployee().setEnable(true);
 			confirmationTokenRepository.delete(confirmedtoken);			
 		}
+		throw new BadRequestException("token Null",ErrorCodes.DATA_INTEGRITY_ERROR);
 		
 
 		
 		
 	}
-	@Override
-	public ConfirmationToken findToken(String value) throws Exception {
-		
-		return confirmationTokenRepository.findByValue(value).orElseThrow(()->new BadRequestException() );
-			}
-		
-
-
+	
 }
